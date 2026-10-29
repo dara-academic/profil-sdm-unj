@@ -140,10 +140,20 @@
     bkd: '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>',
     tendik: '<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M17 11a3 3 0 1 0 0-6M22 20c0-2.6-1.6-4.6-4-5.5"/>',
     sumber: '<path d="M4 4h12l4 4v12H4zM16 4v4h4M8 13h8M8 17h5"/>',
+    prodi: '<path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM4 19a2 2 0 0 1 2-2h12M9 7h5"/>',
+    regenerasi: '<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>',
+    rencana: '<path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM8 15l2 2 5-5"/>',
+    tatakelola: '<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/>',
   };
   const sections = [...document.querySelectorAll('.page')];
   const pages = sections.map((s) => s.id.slice(3));
-  $('nav').replaceChildren(...sections.map((s, i) => el('a', { href: `#${pages[i]}` }, svg(ICON[pages[i]] || ''), s.dataset.title, el('span', { class: 'num' }, String(i + 1)))));
+  const navKids = [];
+  let grp = null;
+  sections.forEach((s, i) => {
+    if (s.dataset.group && s.dataset.group !== grp) { grp = s.dataset.group; navKids.push(el('p', { class: 'nav-group' }, grp)); }
+    navKids.push(el('a', { href: `#${pages[i]}` }, svg(ICON[pages[i]] || ''), s.dataset.title, el('span', { class: 'num' }, String(i + 1))));
+  });
+  $('nav').replaceChildren(...navKids);
   const links = [...$('nav').querySelectorAll('a')];
   let current = null;
   const show = (page) => {
@@ -522,6 +532,153 @@
   donut('ch-t-pend', 'Pendidikan');
   donut('ch-t-status', 'Status');
   donut('ch-t-jab', 'Jabatan');
+
+  /* =================== 10. Kecukupan dosen prodi =================== */
+  const PR = D.prodi.map((r) => ({ ...r, ja_pct: pc(r.ja, r.dosen), status: r.dosen < 5 ? 'Belum memenuhi' : r.dosen === 5 ? 'Rentan' : 'Memenuhi' }));
+  const JEN = ['D4', 'S1', 'Profesi', 'S2', 'S3'];
+  const nOk = PR.filter((r) => r.dosen >= 5).length;
+  const nRentan = PR.filter((r) => r.dosen === 5).length;
+  $('prodi-kpis').replaceChildren(...[
+    ['Program studi', nf(PR.length), `${JEN.map((j) => `${j} ${PR.filter((r) => r.jenjang === j).length}`).join(' · ')}`, 'mute'],
+    ['Memenuhi minimal 5 dosen', `${nOk}/${PR.length}`, `${PR.length - nOk} prodi di bawah 5 dosen tetap`, nOk === PR.length ? 'ok' : 'warn'],
+    ['Tepat 5 dosen', nf(nRentan), 'rentan bila ada pensiun atau mutasi', 'warn'],
+    ['Rata-rata per prodi', (PR.reduce((a, r) => a + r.dosen, 0) / PR.length).toFixed(1).replace('.', ','), 'dosen tetap per program studi', 'mute'],
+  ].map(([l, v, sub, t]) => el('div', { class: 'kpi static' }, el('span', { class: 'kpi-top' }, el('span', { class: 'kpi-label' }, l), el('i', { class: `dot ${t}` })), el('span', { class: 'kpi-num' }, v), el('span', { class: 'kpi-sub' }, sub))));
+  const BINS = [['1–4', 1, 4], ['5', 5, 5], ['6–9', 6, 9], ['10–14', 10, 14], ['15–19', 15, 19], ['20+', 20, 999]];
+  chart('ch-prodi-dist', () => ({
+    type: 'bar',
+    data: { labels: BINS.map((b) => `${b[0]} dosen`), datasets: [{ label: 'Program studi', data: BINS.map(([, a, b]) => PR.filter((r) => r.dosen >= a && r.dosen <= b).length),
+      backgroundColor: BINS.map((_, i) => (i === 0 ? css('--bad') : i === 1 ? css('--warn') : css('--c1'))), borderRadius: 6 }] },
+    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw} program studi` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 0 } } } },
+  }));
+  chart('ch-prodi-jenjang', () => ({
+    type: 'bar',
+    data: { labels: JEN, datasets: [['Memenuhi (6+)', (r) => r.dosen >= 6, '--c1'], ['Rentan (5)', (r) => r.dosen === 5, '--warn'], ['Belum (<5)', (r) => r.dosen < 5, '--bad']]
+      .map(([l, f, c]) => ({ label: l, data: JEN.map((j) => PR.filter((r) => r.jenjang === j && f(r)).length), backgroundColor: css(c), stack: 's', borderRadius: 3 })) },
+    options: { plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { precision: 0 } } } },
+  }));
+  const fill = (id, label, vals) => $(id).replaceChildren(el('option', { value: '' }, label), ...vals.map((v) => el('option', { value: v }, v)));
+  fill('f-jenjang', 'Semua jenjang', JEN);
+  fill('f-fak', 'Semua fakultas', [...new Set(PR.map((r) => r.fakultas))].sort());
+  fill('f-status', 'Semua status', ['Memenuhi', 'Rentan', 'Belum memenuhi']);
+  const drawProdi = () => {
+    const q = $('q-prodi').value.trim().toLowerCase();
+    const fj = $('f-jenjang').value; const ff = $('f-fak').value; const fs = $('f-status').value;
+    const rs = PR.filter((r) => (!q || r.prodi.toLowerCase().includes(q)) && (!fj || r.jenjang === fj) && (!ff || r.fakultas === ff) && (!fs || r.status === fs));
+    $('prodi-count').textContent = `${rs.length} dari ${PR.length} program studi`;
+    table('tbl-prodi', [
+      { label: 'Program studi', key: 'prodi', render: (r) => el('b', {}, r.prodi) },
+      { label: 'Jenjang', key: 'jenjang' }, { label: 'Fakultas', key: 'fakultas' },
+      { label: 'Dosen tetap', key: 'dosen', align: 'r' }, { label: 'Guru Besar', key: 'gb', align: 'r' }, { label: 'Lektor Kepala', key: 'lk', align: 'r' },
+      { label: 'Berjabatan', key: 'ja_pct', align: 'r', render: (r) => pf(r.ja_pct) },
+      { label: 'Status', key: 'status', sort: (r) => r.dosen, render: (r) => el('span', { class: `pill ${r.status === 'Memenuhi' ? 'ok' : r.status === 'Rentan' ? 'warn' : 'bad'}` }, r.status) },
+    ], rs, { sortKey: 'dosen', sortDir: 1 });
+  };
+  ['q-prodi', 'f-jenjang', 'f-fak', 'f-status'].forEach((id) => $(id).addEventListener('input', drawProdi));
+  drawProdi();
+
+  /* =================== 11. Demografi & regenerasi =================== */
+  const G = D.regenerasi;
+  const P0 = G.pipeline;
+  const pensDosen = D.pensiun.reduce((a, r) => a + r.dosen, 0);
+  const pensTendik = D.pensiun.reduce((a, r) => a + r.tendik_tetap, 0);
+  $('regen-kpis').replaceChildren(...[
+    ['Dosen pensiun Okt 2026–2029', nf(pensDosen), `${D.pensiun.reduce((a, r) => a + r.guru_besar, 0)} di antaranya Guru Besar`, 'warn'],
+    ['Tendik tetap pensiun', nf(pensTendik), 'Okt 2026 sampai 2029', 'warn'],
+    ['Calon Guru Besar', nf(P0.lk_s3), 'Lektor Kepala bergelar doktor', 'ok'],
+    ['Dosen non-doktor usia ≤ 49', nf(P0.s2_muda), 'sasaran program studi lanjut S3', 'mute'],
+  ].map(([l, v, sub, t]) => el('div', { class: 'kpi static' }, el('span', { class: 'kpi-top' }, el('span', { class: 'kpi-label' }, l), el('i', { class: `dot ${t}` })), el('span', { class: 'kpi-num' }, v), el('span', { class: 'kpi-sub' }, sub))));
+  const pmax = Math.max(P0.gb, P0.lk, P0.l, P0.aa, P0.tp);
+  const prow = (nama, n, cand, candLbl, color) => el('div', { class: 'pipe-row' },
+    el('b', {}, nama, cand != null ? el('small', {}, `${nf(cand)} ${candLbl}`) : null),
+    el('div', { class: 'pipe-bar', title: `${nama}: ${nf(n)}` }, el('span', { style: `width:${(n / pmax) * 100}%;background:var(${color})` }), cand != null ? el('em', { style: `width:${(cand / pmax) * 100}%` }) : null),
+    el('div', { class: 'pipe-val' }, nf(n), el('small', {}, pf(pc(n, K.dosen)))));
+  $('pipeline').replaceChildren(
+    prow('Guru Besar', P0.gb, null, '', '--c1'),
+    prow('Lektor Kepala', P0.lk, P0.lk_s3, 'bergelar doktor, calon GB', '--c2'),
+    prow('Lektor', P0.l, P0.l_s3, 'bergelar doktor, calon LK', '--c3'),
+    prow('Asisten Ahli', P0.aa, null, '', '--c4'),
+    prow('Belum berjabatan', P0.tp, P0.cpns25, 'CPNS 2025, menunggu jabatan pertama', '--c5'),
+    el('div', { class: 'pipe-legend' }, el('span', {}, el('i', { style: 'background:var(--c2)' }), 'Jumlah pada jenjang'), el('span', {}, el('i', { style: 'background:var(--c-accent)' }), 'Calon kenaikan atau CPNS 2025')),
+  );
+  chart('ch-pensiun-fak', () => {
+    const rs = [...FS].sort((a, b) => b.pensiun - a.pensiun);
+    return { type: 'bar', data: { labels: rs.map((r) => r.kode), datasets: [{ label: 'Pensiun', data: rs.map((r) => r.pensiun), backgroundColor: css('--c-accent'), borderRadius: 4 }] },
+      options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { title: (it) => rs[it[0].dataIndex].nama, label: (c) => `${c.raw} dosen pensiun (${pf(pc(c.raw, rs[c.dataIndex].dosen))} dari dosen fakultas)` } } },
+        scales: { x: { ticks: { precision: 0 } }, y: { grid: { display: false } } } } };
+  });
+  const ageChart = (id, rows, color, unit) => chart(id, () => ({
+    type: 'bar', data: { labels: rows.map((r) => r.kelompok), datasets: [{ label: unit, data: rows.map((r) => r.jumlah), backgroundColor: rows.map((_, i) => (i === rows.length - 1 ? css('--c-accent') : css(color))), borderRadius: 6 }] },
+    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${nf(c.raw)} ${unit} (${pf(pc(c.raw, rows.reduce((a, r) => a + r.jumlah, 0)))})` } } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Usia (tahun)' } }, y: { ticks: { precision: 0 } } } },
+  }));
+  ageChart('ch-usia', G.usia, '--c1', 'dosen');
+  ageChart('ch-t-usia', G.t_usia, '--c2', 'tendik');
+  chart('ch-status-dosen', () => ({
+    type: 'doughnut', data: { labels: G.status.map((r) => r.status), datasets: [{ data: G.status.map((r) => r.jumlah), backgroundColor: [css('--c1'), css('--c-accent'), css('--c3')], borderColor: css('--panel'), borderWidth: 3 }] },
+    options: { cutout: '60%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, K.dosen))})` } } } },
+  }));
+  chart('ch-jft-jenis', () => ({
+    type: 'bar', data: { labels: G.t_jft_jenis.map((r) => r.jenis), datasets: [{ label: 'Tendik', data: G.t_jft_jenis.map((r) => r.jumlah), backgroundColor: css('--c2'), borderRadius: 4 }] },
+    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { precision: 0 } }, y: { grid: { display: false } } } },
+  }));
+
+  /* =================== 12. Rencana pengembangan =================== */
+  const RT = D.rencana.target;
+  const capOf = Object.fromEntries(D.renstra.map((r) => [r.kunci, r.capaian]));
+  const selT = $('sel-target');
+  selT.replaceChildren(...RT.map((r) => el('option', { value: r.kunci }, r.indikator)));
+  const YRS = ['2026', '2027', '2028', '2029'];
+  builders['ch-target'] = () => {
+    const r = RT.find((x) => x.kunci === selT.value);
+    const cap = capOf[r.kunci];
+    const vals = YRS.map((y) => r.target[y]);
+    return {
+      type: 'line',
+      data: { labels: YRS, datasets: [{ label: 'Target Renstra', data: vals, borderColor: css('--c1'), backgroundColor: color(css('--c1'), .15), fill: true, tension: .25, pointRadius: 5 }] },
+      options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Target ${c.label}: ${c.raw}%` } },
+        refLines: { lines: cap != null ? [{ axis: 'y', value: cap, label: `Capaian saat ini ${pf(cap)}`, color: css('--c-accent') }] : [] } },
+        scales: { x: { grid: { display: false } }, y: { min: 0, suggestedMax: Math.max(...vals, cap || 0) + 5, ticks: { callback: (v) => `${v}%` } } } },
+    };
+  };
+  const color = (hex, a) => { const m = hex.replace('#', ''); if (m.length !== 6) return hex; const n = parseInt(m, 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+  const drawTarget = () => {
+    const r = RT.find((x) => x.kunci === selT.value);
+    const cap = capOf[r.kunci];
+    $('target-note').textContent = cap != null ? `Capaian saat ini ${pf(cap)}; target 2026 ${r.target['2026']}% dan 2029 ${r.target['2029']}%.` : `Capaian saat ini belum dihitung; target 2026 ${r.target['2026']}% dan 2029 ${r.target['2029']}%.`;
+    render('ch-target');
+  };
+  selT.addEventListener('change', drawTarget);
+  drawTarget();
+  const tv = (r, y) => (r.kunci === 'rasio' ? `1:${r.target[y]}` : `${r.target[y]}%`);
+  table('tbl-target', [
+    { label: 'Indikator', key: 'indikator' },
+    { label: 'Saat ini', align: 'r', render: (r) => (capOf[r.kunci] != null ? pf(capOf[r.kunci]) : '–') },
+    { label: '2026', align: 'r', render: (r) => tv(r, '2026') }, { label: '2029', align: 'r', render: (r) => tv(r, '2029') },
+  ], [...RT, { kunci: 'rasio', indikator: 'Rasio dosen : mahasiswa', target: D.rencana.rasio }]);
+  const progCards = (id, rows) => $(id).replaceChildren(...rows.map((r) => el('article', { class: 'prog-card' },
+    el('span', { class: 'code' }, r.kode), el('h3', {}, r.program), el('span', { class: 'lbl' }, 'Sasaran'), el('p', { class: 'target' }, r.sasaran), el('span', { class: 'lbl' }, 'Kegiatan utama'), el('p', { class: 'act' }, r.kegiatan))));
+  progCards('prog-dosen', D.rencana.dosen);
+  progCards('prog-tendik', D.rencana.tendik);
+
+  /* =================== 13. Tata kelola =================== */
+  const TK = D.tatakelola;
+  $('akun-kpis').replaceChildren(...TK.akuntabilitas.map((r) => el('div', { class: 'kpi static' }, el('span', { class: 'kpi-top' }, el('span', { class: 'kpi-label' }, r.label), el('i', { class: 'dot ok' })), el('span', { class: 'kpi-num' }, r.nilai), el('span', { class: 'kpi-sub' }, 'Renstra UNJ 2025–2029'))));
+  $('cycle').replaceChildren(...TK.ppepp.map((r) => el('li', {}, el('b', {}, r.tahap), el('span', {}, r.isi))));
+  $('fungsi').replaceChildren(...TK.fungsi.map((r) => el('div', { class: 'fungsi-row' }, el('b', {}, r.fungsi), el('p', {}, r.isi), el('small', {}, r.dasar))));
+  table('tbl-dokumen', [{ label: 'Dokumen', key: 'nama', render: (r) => el('b', {}, r.nama) }, { label: 'Jenis', key: 'jenis' }, { label: 'Keterangan', key: 'ket', render: (r) => el('span', { class: 'muted' }, r.ket) }], TK.dokumen);
+  $('chips').replaceChildren(...TK.sistem.map((x) => el('span', {}, x)));
+
+  /* ---------- Unduh tabel sebagai CSV ---------- */
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-csv]');
+    if (!b) return;
+    const t = $(b.dataset.csv);
+    const esc = (v) => `"${String(v).replace(/\s+/g, ' ').trim().replace(/"/g, '""')}"`;
+    const lines = [...t.querySelectorAll('tr')].map((tr) => [...tr.children].map((c) => esc(c.textContent.replace(/[↑↓]/g, ''))).join(';'));
+    const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: `${b.dataset.name || 'tabel'}.csv` });
+    document.body.append(a); a.click(); a.remove();
+  });
 
   /* =================== 9. Sumber =================== */
   $('sources').replaceChildren(...D.meta.sumber.map((s) => el('li', {}, s)));

@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=2">
+<link rel="stylesheet" href="assets/style.css?v=3">
 </head>
 <body>
 <div class="app">
@@ -53,7 +53,7 @@
 
     <main class="content">
       <!-- 1. Ringkasan -->
-      <section class="page" id="pg-ringkasan" data-title="Ringkasan" data-sub="Gambaran umum dosen dan tenaga kependidikan">
+      <section class="page" data-group="Profil SDM" id="pg-ringkasan" data-title="Ringkasan" data-sub="Gambaran umum dosen dan tenaga kependidikan">
         <div class="lead-card">
           <p class="lead" id="lead">Memuat data…</p>
         </div>
@@ -72,7 +72,7 @@
       </section>
 
       <!-- 2. Renstra -->
-      <section class="page" id="pg-renstra" data-title="Target Renstra" data-sub="Capaian terhadap target Renstra UNJ 2025–2029">
+      <section class="page" data-group="Profil SDM" id="pg-renstra" data-title="Target Renstra" data-sub="Capaian terhadap target Renstra UNJ 2025–2029">
         <div class="grid">
           <div class="card span-7">
             <div class="card-head"><h2>Capaian dan target</h2><span class="legend-inline"><i class="mk"></i>2026 <i class="mk t29"></i>2029</span></div>
@@ -95,7 +95,7 @@
       </section>
 
       <!-- 3. Tren -->
-      <section class="page" id="pg-tren" data-title="Tren" data-sub="Perkembangan jabatan akademik, pendidikan, dan tenaga kependidikan">
+      <section class="page" data-group="Profil SDM" id="pg-tren" data-title="Tren" data-sub="Perkembangan jabatan akademik, pendidikan, dan tenaga kependidikan">
         <div class="grid">
           <div class="card span-8">
             <div class="card-head"><h2>Dosen tetap menurut jabatan akademik</h2>
@@ -120,7 +120,7 @@
       </section>
 
       <!-- 4. Fakultas -->
-      <section class="page" id="pg-fakultas" data-title="Fakultas" data-sub="Kualifikasi dan jabatan dosen tetap per fakultas">
+      <section class="page" data-group="Profil SDM" id="pg-fakultas" data-title="Fakultas" data-sub="Kualifikasi dan jabatan dosen tetap per fakultas">
         <div class="grid">
           <div class="card span-8">
             <div class="card-head"><h2>Doktor dan Guru Besar + Lektor Kepala</h2><span class="legend-inline">Garis: syarat unggul 50% dan 30%</span></div>
@@ -128,14 +128,14 @@
           </div>
           <div class="card span-4 detail" id="fak-detail"></div>
           <div class="card span-12">
-            <div class="card-head"><h2>Rincian per fakultas</h2><span class="hint">Klik judul kolom untuk mengurutkan, klik baris untuk melihat detail</span></div>
+            <div class="card-head"><h2>Rincian per fakultas</h2><span class="hint">Klik judul kolom untuk mengurutkan, klik baris untuk melihat detail <button type="button" class="btn-ghost" data-csv="tbl-fakultas" data-name="dosen-per-fakultas">Unduh CSV</button></span></div>
             <div class="table-wrap"><table class="tbl sortable clickable" id="tbl-fakultas"></table></div>
           </div>
         </div>
       </section>
 
       <!-- 5. Jabatan -->
-      <section class="page" id="pg-jabatan" data-title="Jabatan" data-sub="Proporsi jabatan fungsional dosen tetap">
+      <section class="page" data-group="Profil SDM" id="pg-jabatan" data-title="Jabatan" data-sub="Proporsi jabatan fungsional dosen tetap">
         <div class="grid">
           <div class="card span-5">
             <div class="card-head"><h2>Komposisi jabatan</h2><div class="seg" id="seg-pembagi"></div></div>
@@ -154,7 +154,7 @@
       </section>
 
       <!-- 6. Program doktor -->
-      <section class="page" id="pg-doktor" data-title="Program Doktor" data-sub="Guru Besar pada program doktor">
+      <section class="page" data-group="Profil SDM" id="pg-doktor" data-title="Program Doktor" data-sub="Guru Besar pada program doktor">
         <div class="grid">
           <div class="card span-7">
             <div class="card-head"><h2>Porsi Guru Besar per program doktor</h2><span class="legend-inline">Garis: syarat unggul 50%</span></div>
@@ -169,7 +169,7 @@
       </section>
 
       <!-- 7. BKD -->
-      <section class="page" id="pg-bkd" data-title="Kinerja BKD" data-sub="Beban kerja dosen enam semester dari SISTER">
+      <section class="page" data-group="Profil SDM" id="pg-bkd" data-title="Kinerja BKD" data-sub="Beban kerja dosen enam semester dari SISTER">
         <div class="grid">
           <div class="card span-8">
             <div class="card-head"><h2>Dosen yang memenuhi BKD</h2><span class="hint">Klik titik untuk memilih semester</span></div>
@@ -196,7 +196,7 @@
       </section>
 
       <!-- 8. Tendik -->
-      <section class="page" id="pg-tendik" data-title="Tendik" data-sub="Tenaga kependidikan per 8 Oktober 2026">
+      <section class="page" data-group="Profil SDM" id="pg-tendik" data-title="Tendik" data-sub="Tenaga kependidikan per 8 Oktober 2026">
         <div class="kpis four" id="tendik-kpis"></div>
         <div class="grid">
           <div class="card span-4"><div class="card-head"><h2>Pendidikan terakhir</h2></div><div class="chart-box md"><canvas id="ch-t-pend"></canvas></div></div>
@@ -205,8 +205,110 @@
         </div>
       </section>
 
+      <!-- 10. Kecukupan dosen prodi -->
+      <section class="page" data-group="Kesiapan Akreditasi" id="pg-prodi" data-title="Kecukupan Dosen Prodi" data-sub="Dosen tetap per program studi menurut PDDikti (Oktober 2026)">
+        <div class="kpis four" id="prodi-kpis"></div>
+        <div class="grid">
+          <div class="card span-7">
+            <div class="card-head"><h2>Sebaran jumlah dosen tetap per program studi</h2><span class="legend-inline">Syarat perlu: minimal 5 dosen tetap</span></div>
+            <div class="chart-box md"><canvas id="ch-prodi-dist"></canvas></div>
+          </div>
+          <div class="card span-5">
+            <div class="card-head"><h2>Status per jenjang</h2></div>
+            <div class="chart-box md"><canvas id="ch-prodi-jenjang"></canvas></div>
+          </div>
+          <div class="card span-12">
+            <div class="card-head"><h2>Daftar program studi</h2><button type="button" class="btn-ghost" data-csv="tbl-prodi" data-name="dosen-per-prodi">Unduh CSV</button></div>
+            <div class="toolbar">
+              <input type="search" id="q-prodi" placeholder="Cari program studi" aria-label="Cari program studi">
+              <select id="f-jenjang" aria-label="Saring jenjang"></select>
+              <select id="f-fak" aria-label="Saring fakultas"></select>
+              <select id="f-status" aria-label="Saring status"></select>
+              <span class="count" id="prodi-count"></span>
+            </div>
+            <div class="table-wrap tall"><table class="tbl sortable" id="tbl-prodi"></table></div>
+            <p class="note">Status: kurang dari 5 belum memenuhi syarat perlu; tepat 5 memenuhi tetapi rentan bila ada dosen pensiun atau mutasi. Fakultas dipetakan dari homebase di DUK.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. Regenerasi -->
+      <section class="page" data-group="Kesiapan Akreditasi" id="pg-regenerasi" data-title="Demografi & Regenerasi" data-sub="Usia, pensiun, dan jenjang karier dosen serta tendik">
+        <div class="kpis four" id="regen-kpis"></div>
+        <div class="grid">
+          <div class="card span-7">
+            <div class="card-head"><h2>Jenjang karier dosen tetap</h2><span class="legend-inline">Calon kenaikan: dosen bergelar doktor di jenjang di bawahnya</span></div>
+            <div class="pipeline" id="pipeline"></div>
+          </div>
+          <div class="card span-5">
+            <div class="card-head"><h2>Pensiun dosen per fakultas, Okt 2026–2029</h2></div>
+            <div class="chart-box md"><canvas id="ch-pensiun-fak"></canvas></div>
+          </div>
+          <div class="card span-6">
+            <div class="card-head"><h2>Usia dosen tetap</h2></div>
+            <div class="chart-box md"><canvas id="ch-usia"></canvas></div>
+          </div>
+          <div class="card span-6">
+            <div class="card-head"><h2>Usia tenaga kependidikan</h2></div>
+            <div class="chart-box md"><canvas id="ch-t-usia"></canvas></div>
+          </div>
+          <div class="card span-5">
+            <div class="card-head"><h2>Status kepegawaian dosen tetap</h2></div>
+            <div class="chart-box md"><canvas id="ch-status-dosen"></canvas></div>
+          </div>
+          <div class="card span-7">
+            <div class="card-head"><h2>Jabatan fungsional tertentu tendik</h2></div>
+            <div class="chart-box md"><canvas id="ch-jft-jenis"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. Rencana pengembangan -->
+      <section class="page" data-group="Kesiapan Akreditasi" id="pg-rencana" data-title="Rencana Pengembangan" data-sub="Program pengembangan SDM 2026–2029 berdasarkan Renstra UNJ 2025–2029">
+        <div class="grid">
+          <div class="card span-7">
+            <div class="card-head"><h2>Target tahunan Renstra</h2><select id="sel-target" class="inline" aria-label="Pilih indikator"></select></div>
+            <div class="chart-box md"><canvas id="ch-target"></canvas></div>
+            <p class="note" id="target-note"></p>
+          </div>
+          <div class="card span-5">
+            <div class="card-head"><h2>Target indikator SDM</h2></div>
+            <div class="table-wrap"><table class="tbl compact" id="tbl-target"></table></div>
+          </div>
+          <div class="card span-12">
+            <div class="card-head"><h2>Program pengembangan dosen</h2></div>
+            <div class="programs" id="prog-dosen"></div>
+          </div>
+          <div class="card span-12">
+            <div class="card-head"><h2>Program pengembangan tenaga kependidikan</h2></div>
+            <div class="programs" id="prog-tendik"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. Tata kelola -->
+      <section class="page" data-group="Kesiapan Akreditasi" id="pg-tatakelola" data-title="Tata Kelola SDM" data-sub="Siklus PPEPP, fungsi manajemen, dan dokumen kebijakan">
+        <div class="kpis three" id="akun-kpis"></div>
+        <div class="card">
+          <div class="card-head"><h2>Siklus pengelolaan SDM (PPEPP)</h2></div>
+          <ol class="cycle" id="cycle"></ol>
+        </div>
+        <div class="grid">
+          <div class="card span-7">
+            <div class="card-head"><h2>Fungsi manajemen</h2></div>
+            <div class="fungsi" id="fungsi"></div>
+          </div>
+          <div class="card span-5">
+            <div class="card-head"><h2>Dokumen kebijakan</h2></div>
+            <div class="table-wrap"><table class="tbl compact" id="tbl-dokumen"></table></div>
+            <h3 class="sub">Sistem informasi pendukung</h3>
+            <div class="chips" id="chips"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- 9. Sumber -->
-      <section class="page" id="pg-sumber" data-title="Sumber" data-sub="Sumber data dan catatan metodologi">
+      <section class="page" data-group="Lainnya" id="pg-sumber" data-title="Sumber" data-sub="Sumber data dan catatan metodologi">
         <div class="grid">
           <div class="card span-7">
             <div class="card-head"><h2>Sumber data</h2></div>
@@ -228,7 +330,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="data/data.js?v=2"></script>
-<script src="assets/app.js?v=2"></script>
+<script src="data/data.js?v=3"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>

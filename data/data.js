@@ -9,7 +9,8 @@ window.SDM_DATA = {
    "Rekap BKD enam semester dari SISTER, Ganjil 2023/2024 sampai Genap 2025/2026",
    "Renstra UNJ 2025–2029 (IKK 8.6.1–8.6.8, subbab 3.4.5.3, Gambar 1.22)",
    "PDDikti Oktober 2026",
-   "Instrumen IAPT 4.1 (PerBAN-PT 35/2025)"
+   "Instrumen IAPT 4.1 (PerBAN-PT 35/2025)",
+   "Laporan dan peraturan yang dirujuk Renstra UNJ 2025–2029 (SAKIP, opini WTP, sistem informasi)"
   ]
  },
  "kpi": {
@@ -2479,6 +2480,1510 @@ window.SDM_DATA = {
     "periode": "Okt 2026",
     "sumber": "Rekapitulasi Data Tendik per 8 Oktober 2026",
     "jumlah": 667
+   }
+  ]
+ },
+ "prodi": [
+  {
+   "prodi": "Administrasi Perkantoran Digital",
+   "jenjang": "D4",
+   "fakultas": "FEB",
+   "dosen": 7,
+   "gb": 0,
+   "lk": 1,
+   "ja": 6
+  },
+  {
+   "prodi": "Akuntansi Sektor Publik",
+   "jenjang": "D4",
+   "fakultas": "FEB",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 0,
+   "ja": 8
+  },
+  {
+   "prodi": "Desain Mode",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 8,
+   "gb": 1,
+   "lk": 1,
+   "ja": 7
+  },
+  {
+   "prodi": "Hubungan Masyarakat Dan Komunikasi Digital",
+   "jenjang": "D4",
+   "fakultas": "FISH",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 0,
+   "ja": 6
+  },
+  {
+   "prodi": "Kosmetik dan Perawatan Kecantikan",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 8,
+   "gb": 1,
+   "lk": 2,
+   "ja": 6
+  },
+  {
+   "prodi": "Manajemen Pelabuhan dan Logistik Maritim",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 11,
+   "gb": 0,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Pemasaran Digital",
+   "jenjang": "D4",
+   "fakultas": "FEB",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 3,
+   "ja": 8
+  },
+  {
+   "prodi": "Seni Kuliner dan Pengelolaan Jasa Makanan",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 4,
+   "gb": 0,
+   "lk": 1,
+   "ja": 3
+  },
+  {
+   "prodi": "Teknologi Rekayasa Konstruksi Bangunan Gedung",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 7,
+   "gb": 0,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Teknologi Rekayasa Manufaktur",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 10,
+   "gb": 0,
+   "lk": 4,
+   "ja": 9
+  },
+  {
+   "prodi": "Teknologi Rekayasa Otomasi",
+   "jenjang": "D4",
+   "fakultas": "FT",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 2,
+   "ja": 8
+  },
+  {
+   "prodi": "Usaha Perjalanan Wisata",
+   "jenjang": "D4",
+   "fakultas": "FISH",
+   "dosen": 12,
+   "gb": 0,
+   "lk": 0,
+   "ja": 11
+  },
+  {
+   "prodi": "Pendidikan Profesi Guru",
+   "jenjang": "Profesi",
+   "fakultas": "FT",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Akuntansi",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 12,
+   "gb": 0,
+   "lk": 2,
+   "ja": 11
+  },
+  {
+   "prodi": "Bimbingan Dan Konseling",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 0,
+   "ja": 9
+  },
+  {
+   "prodi": "Biologi",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 14,
+   "gb": 3,
+   "lk": 3,
+   "ja": 14
+  },
+  {
+   "prodi": "Bisnis Digital",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 14,
+   "gb": 0,
+   "lk": 2,
+   "ja": 13
+  },
+  {
+   "prodi": "Ekonomi dan Keuangan Islam",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 0,
+   "lk": 0,
+   "ja": 3
+  },
+  {
+   "prodi": "Fisika",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 12,
+   "gb": 3,
+   "lk": 2,
+   "ja": 10
+  },
+  {
+   "prodi": "Geografi",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 8,
+   "gb": 1,
+   "lk": 0,
+   "ja": 8
+  },
+  {
+   "prodi": "Ilmu Ekonomi",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 0,
+   "ja": 5
+  },
+  {
+   "prodi": "Ilmu Hukum",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 7,
+   "gb": 1,
+   "lk": 2,
+   "ja": 6
+  },
+  {
+   "prodi": "Ilmu Keolahragaan",
+   "jenjang": "S1",
+   "fakultas": "FIKK",
+   "dosen": 16,
+   "gb": 1,
+   "lk": 3,
+   "ja": 15
+  },
+  {
+   "prodi": "Ilmu Komputer",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 9,
+   "gb": 0,
+   "lk": 0,
+   "ja": 8
+  },
+  {
+   "prodi": "Ilmu Komunikasi",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 16,
+   "gb": 1,
+   "lk": 4,
+   "ja": 15
+  },
+  {
+   "prodi": "Kepelatihan Kecabangan Olahraga",
+   "jenjang": "S1",
+   "fakultas": "FIKK",
+   "dosen": 15,
+   "gb": 0,
+   "lk": 5,
+   "ja": 15
+  },
+  {
+   "prodi": "Kimia",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 14,
+   "gb": 2,
+   "lk": 2,
+   "ja": 8
+  },
+  {
+   "prodi": "Manajemen",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 19,
+   "gb": 1,
+   "lk": 0,
+   "ja": 17
+  },
+  {
+   "prodi": "Manajemen Pendidikan",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 15,
+   "gb": 2,
+   "lk": 1,
+   "ja": 9
+  },
+  {
+   "prodi": "Matematika",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 0,
+   "ja": 8
+  },
+  {
+   "prodi": "Olahraga Rekreasi",
+   "jenjang": "S1",
+   "fakultas": "FIKK",
+   "dosen": 15,
+   "gb": 3,
+   "lk": 6,
+   "ja": 13
+  },
+  {
+   "prodi": "Pendidikan Administrasi Perkantoran",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 11,
+   "gb": 1,
+   "lk": 2,
+   "ja": 11
+  },
+  {
+   "prodi": "Pendidikan Agama Islam",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 17,
+   "gb": 0,
+   "lk": 3,
+   "ja": 14
+  },
+  {
+   "prodi": "Pendidikan Akuntansi",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 8,
+   "gb": 1,
+   "lk": 0,
+   "ja": 8
+  },
+  {
+   "prodi": "Pendidikan Bahasa Arab",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 16,
+   "gb": 0,
+   "lk": 2,
+   "ja": 11
+  },
+  {
+   "prodi": "Pendidikan Bahasa Dan Sastra Indonesia",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 11,
+   "gb": 0,
+   "lk": 0,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Bahasa Inggris",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 19,
+   "gb": 1,
+   "lk": 2,
+   "ja": 15
+  },
+  {
+   "prodi": "Pendidikan Bahasa Jepang",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 16,
+   "gb": 0,
+   "lk": 1,
+   "ja": 15
+  },
+  {
+   "prodi": "Pendidikan Bahasa Jerman",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 2,
+   "ja": 13
+  },
+  {
+   "prodi": "Pendidikan Bahasa Mandarin",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 10,
+   "gb": 0,
+   "lk": 0,
+   "ja": 9
+  },
+  {
+   "prodi": "Pendidikan Bahasa Perancis",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 10,
+   "gb": 1,
+   "lk": 0,
+   "ja": 9
+  },
+  {
+   "prodi": "Pendidikan Biologi",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 2,
+   "ja": 12
+  },
+  {
+   "prodi": "Pendidikan Bisnis",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 12,
+   "gb": 1,
+   "lk": 0,
+   "ja": 12
+  },
+  {
+   "prodi": "Pendidikan Ekonomi",
+   "jenjang": "S1",
+   "fakultas": "FEB",
+   "dosen": 7,
+   "gb": 0,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Fisika",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 12,
+   "gb": 1,
+   "lk": 4,
+   "ja": 11
+  },
+  {
+   "prodi": "Pendidikan Geografi",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 10,
+   "gb": 1,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Guru Pendidikan Anak Usia Dini",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 14,
+   "gb": 0,
+   "lk": 1,
+   "ja": 13
+  },
+  {
+   "prodi": "Pendidikan Guru Sekolah Dasar",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 35,
+   "gb": 2,
+   "lk": 1,
+   "ja": 25
+  },
+  {
+   "prodi": "Pendidikan IPS",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 13,
+   "gb": 2,
+   "lk": 1,
+   "ja": 11
+  },
+  {
+   "prodi": "Pendidikan Jasmani, Kesehatan & Rekreasi",
+   "jenjang": "S1",
+   "fakultas": "FIKK",
+   "dosen": 29,
+   "gb": 1,
+   "lk": 7,
+   "ja": 27
+  },
+  {
+   "prodi": "Pendidikan Kepelatihan Olahraga",
+   "jenjang": "S1",
+   "fakultas": "FIKK",
+   "dosen": 18,
+   "gb": 2,
+   "lk": 4,
+   "ja": 17
+  },
+  {
+   "prodi": "Pendidikan Kesejahteraan Keluarga",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 1,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Khusus",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 16,
+   "gb": 0,
+   "lk": 5,
+   "ja": 14
+  },
+  {
+   "prodi": "Pendidikan Kimia",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 18,
+   "gb": 2,
+   "lk": 1,
+   "ja": 15
+  },
+  {
+   "prodi": "Pendidikan Masyarakat",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 11,
+   "gb": 0,
+   "lk": 1,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Matematika",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 17,
+   "gb": 0,
+   "lk": 3,
+   "ja": 13
+  },
+  {
+   "prodi": "Pendidikan Musik",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 18,
+   "gb": 0,
+   "lk": 2,
+   "ja": 16
+  },
+  {
+   "prodi": "Pendidikan Pancasila Dan Kewarganegaraan",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 9,
+   "gb": 2,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Sejarah",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 11,
+   "gb": 0,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Seni Rupa",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 16,
+   "gb": 0,
+   "lk": 0,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Sosiologi",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 14,
+   "gb": 1,
+   "lk": 1,
+   "ja": 12
+  },
+  {
+   "prodi": "Pendidikan Tari",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 0,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Tata Boga",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 14,
+   "gb": 0,
+   "lk": 6,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Tata Busana",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 9,
+   "gb": 0,
+   "lk": 3,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Tata Rias",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 1,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Teknik Bangunan",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 14,
+   "gb": 1,
+   "lk": 2,
+   "ja": 12
+  },
+  {
+   "prodi": "Pendidikan Teknik Elektro",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 13,
+   "gb": 1,
+   "lk": 1,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Teknik Elektronika",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 18,
+   "gb": 2,
+   "lk": 3,
+   "ja": 12
+  },
+  {
+   "prodi": "Pendidikan Teknik Informatika dan Komputer",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 15,
+   "gb": 0,
+   "lk": 0,
+   "ja": 10
+  },
+  {
+   "prodi": "Pendidikan Teknik Mesin",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 20,
+   "gb": 1,
+   "lk": 5,
+   "ja": 16
+  },
+  {
+   "prodi": "Perpustakaan dan Sains Informasi",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 9,
+   "gb": 0,
+   "lk": 0,
+   "ja": 6
+  },
+  {
+   "prodi": "Psikologi",
+   "jenjang": "S1",
+   "fakultas": "FPsi",
+   "dosen": 39,
+   "gb": 1,
+   "lk": 1,
+   "ja": 25
+  },
+  {
+   "prodi": "Rekayasa Keselamatan Kebakaran",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 2,
+   "ja": 6
+  },
+  {
+   "prodi": "Sastra Indonesia",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 14,
+   "gb": 0,
+   "lk": 1,
+   "ja": 13
+  },
+  {
+   "prodi": "Sastra Inggris",
+   "jenjang": "S1",
+   "fakultas": "FBS",
+   "dosen": 17,
+   "gb": 0,
+   "lk": 0,
+   "ja": 14
+  },
+  {
+   "prodi": "Sistem dan Teknologi Informasi",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 10,
+   "gb": 0,
+   "lk": 1,
+   "ja": 7
+  },
+  {
+   "prodi": "Sosiologi",
+   "jenjang": "S1",
+   "fakultas": "FISH",
+   "dosen": 13,
+   "gb": 1,
+   "lk": 2,
+   "ja": 10
+  },
+  {
+   "prodi": "Statistika",
+   "jenjang": "S1",
+   "fakultas": "FMIPA",
+   "dosen": 9,
+   "gb": 1,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Teknik Mesin",
+   "jenjang": "S1",
+   "fakultas": "FT",
+   "dosen": 7,
+   "gb": 1,
+   "lk": 3,
+   "ja": 7
+  },
+  {
+   "prodi": "Teknologi Pendidikan",
+   "jenjang": "S1",
+   "fakultas": "FIP",
+   "dosen": 13,
+   "gb": 0,
+   "lk": 0,
+   "ja": 9
+  },
+  {
+   "prodi": "Akuntansi",
+   "jenjang": "S2",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Bimbingan Konseling",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Ilmu Keolahragaan",
+   "jenjang": "S2",
+   "fakultas": "FIKK",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 3,
+   "ja": 5
+  },
+  {
+   "prodi": "Linguistik Terapan",
+   "jenjang": "S2",
+   "fakultas": "FBS",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 3,
+   "ja": 5
+  },
+  {
+   "prodi": "Manajemen",
+   "jenjang": "S2",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 0,
+   "lk": 1,
+   "ja": 4
+  },
+  {
+   "prodi": "Manajemen Lingkungan",
+   "jenjang": "S2",
+   "fakultas": "FMIPA",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Manajemen Pendidikan",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 8,
+   "gb": 0,
+   "lk": 3,
+   "ja": 7
+  },
+  {
+   "prodi": "Manajemen Pendidikan Tinggi",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 4,
+   "lk": 0,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Anak Usia Dini",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 7,
+   "gb": 1,
+   "lk": 1,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Bahasa Arab",
+   "jenjang": "S2",
+   "fakultas": "FBS",
+   "dosen": 6,
+   "gb": 1,
+   "lk": 3,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Bahasa Indonesia",
+   "jenjang": "S2",
+   "fakultas": "FBS",
+   "dosen": 6,
+   "gb": 1,
+   "lk": 2,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Bahasa Inggris",
+   "jenjang": "S2",
+   "fakultas": "FBS",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Biologi",
+   "jenjang": "S2",
+   "fakultas": "FMIPA",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 4,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Dasar",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 8,
+   "gb": 2,
+   "lk": 2,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Ekonomi",
+   "jenjang": "S2",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 4,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Fisika",
+   "jenjang": "S2",
+   "fakultas": "FMIPA",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 3,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Geografi",
+   "jenjang": "S2",
+   "fakultas": "FISH",
+   "dosen": 6,
+   "gb": 2,
+   "lk": 3,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Jasmani",
+   "jenjang": "S2",
+   "fakultas": "FIKK",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 4,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Khusus",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 0,
+   "lk": 3,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Kimia",
+   "jenjang": "S2",
+   "fakultas": "FMIPA",
+   "dosen": 6,
+   "gb": 3,
+   "lk": 3,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Lingkungan",
+   "jenjang": "S2",
+   "fakultas": "FISH",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Masyarakat",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 6,
+   "gb": 1,
+   "lk": 5,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Matematika",
+   "jenjang": "S2",
+   "fakultas": "FMIPA",
+   "dosen": 7,
+   "gb": 1,
+   "lk": 3,
+   "ja": 7
+  },
+  {
+   "prodi": "Pendidikan Pancasila dan Kewarganegaraan",
+   "jenjang": "S2",
+   "fakultas": "FISH",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Sejarah",
+   "jenjang": "S2",
+   "fakultas": "FISH",
+   "dosen": 5,
+   "gb": 0,
+   "lk": 5,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Seni",
+   "jenjang": "S2",
+   "fakultas": "FBS",
+   "dosen": 6,
+   "gb": 2,
+   "lk": 2,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Teknologi dan Kejuruan",
+   "jenjang": "S2",
+   "fakultas": "FT",
+   "dosen": 7,
+   "gb": 3,
+   "lk": 1,
+   "ja": 7
+  },
+  {
+   "prodi": "Penelitian Dan Evaluasi Pendidikan",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Psikologi",
+   "jenjang": "S2",
+   "fakultas": "FPsi",
+   "dosen": 7,
+   "gb": 0,
+   "lk": 6,
+   "ja": 7
+  },
+  {
+   "prodi": "Teknologi Pendidikan",
+   "jenjang": "S2",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 1,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Ilmu Akuntansi",
+   "jenjang": "S3",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 3,
+   "ja": 5
+  },
+  {
+   "prodi": "Ilmu Manajemen",
+   "jenjang": "S3",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 4,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Linguistik Terapan",
+   "jenjang": "S3",
+   "fakultas": "FBS",
+   "dosen": 5,
+   "gb": 4,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Manajemen Bisnis",
+   "jenjang": "S3",
+   "fakultas": "FEB",
+   "dosen": 5,
+   "gb": 3,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Manajemen Pendidikan",
+   "jenjang": "S3",
+   "fakultas": "FIP",
+   "dosen": 6,
+   "gb": 4,
+   "lk": 1,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Kependudukan dan Lingkungan Hidup",
+   "jenjang": "S3",
+   "fakultas": "FISH",
+   "dosen": 6,
+   "gb": 5,
+   "lk": 0,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Anak Usia Dini",
+   "jenjang": "S3",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 3,
+   "lk": 2,
+   "ja": 5
+  },
+  {
+   "prodi": "Pendidikan Dasar",
+   "jenjang": "S3",
+   "fakultas": "FIP",
+   "dosen": 6,
+   "gb": 6,
+   "lk": 0,
+   "ja": 6
+  },
+  {
+   "prodi": "Pendidikan Jasmani",
+   "jenjang": "S3",
+   "fakultas": "FIKK",
+   "dosen": 7,
+   "gb": 6,
+   "lk": 0,
+   "ja": 7
+  },
+  {
+   "prodi": "Penelitian Dan Evaluasi Pendidikan",
+   "jenjang": "S3",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 4,
+   "lk": 1,
+   "ja": 5
+  },
+  {
+   "prodi": "Teknologi Pendidikan",
+   "jenjang": "S3",
+   "fakultas": "FIP",
+   "dosen": 5,
+   "gb": 2,
+   "lk": 3,
+   "ja": 5
+  }
+ ],
+ "regenerasi": {
+  "usia": [
+   {
+    "kelompok": "di bawah 35",
+    "jumlah": 353
+   },
+   {
+    "kelompok": "35–44",
+    "jumlah": 322
+   },
+   {
+    "kelompok": "45–54",
+    "jumlah": 298
+   },
+   {
+    "kelompok": "55–64",
+    "jumlah": 229
+   },
+   {
+    "kelompok": "65 ke atas",
+    "jumlah": 47
+   }
+  ],
+  "t_usia": [
+   {
+    "kelompok": "di bawah 30",
+    "jumlah": 105
+   },
+   {
+    "kelompok": "30–39",
+    "jumlah": 255
+   },
+   {
+    "kelompok": "40–49",
+    "jumlah": 256
+   },
+   {
+    "kelompok": "50–57",
+    "jumlah": 147
+   },
+   {
+    "kelompok": "58 ke atas",
+    "jumlah": 7
+   }
+  ],
+  "status": [
+   {
+    "status": "Dosen PNS",
+    "jumlah": 1157
+   },
+   {
+    "status": "Dosen PPPK",
+    "jumlah": 81
+   },
+   {
+    "status": "Dosen tetap PTNBH",
+    "jumlah": 11
+   }
+  ],
+  "pipeline": {
+   "tp": 184,
+   "cpns25": 173,
+   "aa": 326,
+   "l": 367,
+   "l_s3": 119,
+   "lk": 231,
+   "lk_s3": 169,
+   "gb": 141,
+   "tb": 29,
+   "s2_muda": 635
+  },
+  "t_jft_jenis": [
+   {
+    "jenis": "Arsiparis",
+    "jumlah": 18
+   },
+   {
+    "jenis": "Pustakawan",
+    "jumlah": 15
+   },
+   {
+    "jenis": "Pranata Laboratorium Pendidikan",
+    "jumlah": 14
+   },
+   {
+    "jenis": "Analis Pengelolaan Keuangan APBN",
+    "jumlah": 10
+   },
+   {
+    "jenis": "Pranata Komputer",
+    "jumlah": 9
+   },
+   {
+    "jenis": "Asisten Perpustakaan",
+    "jumlah": 7
+   },
+   {
+    "jenis": "Analis Sumber Daya Manusia Aparatur",
+    "jumlah": 6
+   },
+   {
+    "jenis": "Guru",
+    "jumlah": 4
+   }
+  ]
+ },
+ "rencana": {
+  "dosen": [
+   {
+    "kode": "D1",
+    "program": "Penetapan jabatan akademik pertama",
+    "sasaran": "173 CPNS 2025 memperoleh jabatan Asisten Ahli; proporsi dosen berjabatan akademik kembali di atas 95%",
+    "kegiatan": "Inventarisasi berkas per fakultas, klinik pengusulan, penetapan sesuai kewenangan PTNBH, pemutakhiran SISTER dan PDDikti"
+   },
+   {
+    "kode": "D2",
+    "program": "Studi lanjut doktoral",
+    "sasaran": "Sekitar 33 doktor baru per tahun sampai 2029",
+    "kegiatan": "Pemetaan dosen S2, skema pendanaan SFD, BPPTNBH, dan donor lain, pemantauan studi setiap semester"
+   },
+   {
+    "kode": "D3",
+    "program": "Percepatan Guru Besar",
+    "sasaran": "Sekitar 22 Guru Besar baru per tahun dari 169 Lektor Kepala bergelar doktor",
+    "kegiatan": "Tim pendamping per fakultas, mentoring Guru Besar–Lektor Kepala, klinik publikasi bereputasi"
+   },
+   {
+    "kode": "D4",
+    "program": "Percepatan Lektor Kepala",
+    "sasaran": "Sekitar 42 Lektor Kepala baru per tahun",
+    "kegiatan": "Prioritas studi S3 bagi Lektor, pendampingan usulan bagi 119 Lektor bergelar doktor, hibah penelitian internal"
+   },
+   {
+    "kode": "D5",
+    "program": "Kompetensi dan sertifikasi",
+    "sasaran": "Sertifikasi kompetensi atau profesi dosen 24% (2026) sampai 30% (2029)",
+    "kegiatan": "Pelatihan pedagogi, penelitian, dan kompetensi digital; pemetaan kebutuhan sertifikasi"
+   },
+   {
+    "kode": "D6",
+    "program": "Mobilitas, praktisi, dan rekognisi",
+    "sasaran": "Tridarma di PT lain 30% (2026) sampai 45% (2029); dosen praktisi industri 12% sampai 20%",
+    "kegiatan": "Penugasan dosen ke industri dan PT mitra, optimalisasi kerja sama, program visiting scholar"
+   },
+   {
+    "kode": "D7",
+    "program": "Manajemen kinerja dan kesejahteraan",
+    "sasaran": "Penilaian kinerja berbasis BKD dan remunerasi berbasis kinerja",
+    "kegiatan": "BKD sebagai dasar penilaian kinerja, verifikasi beban lebih, sinkronisasi jabatan di SISTER"
+   }
+  ],
+  "tendik": [
+   {
+    "kode": "T1",
+    "program": "Peningkatan kualifikasi",
+    "sasaran": "S1 52% dan S2 11% pada 2029; tambahan sekitar 45 tendik S2",
+    "kegiatan": "Tugas belajar dan izin belajar, kerja sama program magister terapan"
+   },
+   {
+    "kode": "T2",
+    "program": "Sertifikasi kompetensi",
+    "sasaran": "Tendik bersertifikat 61% (2026) sampai 64% (2029)",
+    "kegiatan": "Skema sertifikasi teknologi informasi, keuangan, administrasi, kearsipan, dan laboratorium bersama LSP"
+   },
+   {
+    "kode": "T3",
+    "program": "Jabatan fungsional tertentu",
+    "sasaran": "Menambah tendik pada jabatan fungsional tertentu dari 103 orang",
+    "kegiatan": "Pemetaan jabatan pelaksana yang dapat dialihkan, uji kompetensi jabatan fungsional"
+   },
+   {
+    "kode": "T4",
+    "program": "Regenerasi dan suksesi",
+    "sasaran": "Pengganti tersedia bagi 60 tendik tetap yang pensiun sampai 2029",
+    "kegiatan": "Daftar posisi kunci dan calon pengganti, rotasi dan magang jabatan, transfer pengetahuan"
+   },
+   {
+    "kode": "T5",
+    "program": "Penataan beban kerja",
+    "sasaran": "Penempatan tendik sesuai analisis beban kerja",
+    "kegiatan": "Analisis jabatan dan beban kerja, peta jabatan, penilaian kinerja berbasis SKP"
+   }
+  ],
+  "target": [
+   {
+    "kunci": "s3",
+    "indikator": "Dosen tetap bergelar S3",
+    "target": {
+     "2026": 40,
+     "2027": 41,
+     "2028": 42,
+     "2029": 43
+    }
+   },
+   {
+    "kunci": "gb",
+    "indikator": "Guru Besar",
+    "target": {
+     "2026": 13,
+     "2027": 14,
+     "2028": 15,
+     "2029": 16
+    }
+   },
+   {
+    "kunci": "lk",
+    "indikator": "Lektor Kepala",
+    "target": {
+     "2026": 19,
+     "2027": 20,
+     "2028": 21,
+     "2029": 22
+    }
+   },
+   {
+    "kunci": "sertifikasi",
+    "indikator": "Dosen bersertifikat kompetensi/profesi",
+    "target": {
+     "2026": 24,
+     "2027": 26,
+     "2028": 28,
+     "2029": 30
+    }
+   },
+   {
+    "kunci": "tridarma_pt_lain",
+    "indikator": "Dosen bertridarma di PT lain",
+    "target": {
+     "2026": 30,
+     "2027": 35,
+     "2028": 40,
+     "2029": 45
+    }
+   },
+   {
+    "kunci": "praktisi_industri",
+    "indikator": "Dosen praktisi industri",
+    "target": {
+     "2026": 12,
+     "2027": 14,
+     "2028": 18,
+     "2029": 20
+    }
+   },
+   {
+    "kunci": "praktisi_profesional",
+    "indikator": "Dosen praktisi profesional",
+    "target": {
+     "2026": 9,
+     "2027": 11,
+     "2028": 13,
+     "2029": 15
+    }
+   },
+   {
+    "kunci": "tendik_s1",
+    "indikator": "Tendik berkualifikasi S1",
+    "target": {
+     "2026": 49,
+     "2027": 50,
+     "2028": 51,
+     "2029": 52
+    }
+   },
+   {
+    "kunci": "tendik_s2",
+    "indikator": "Tendik berkualifikasi S2",
+    "target": {
+     "2026": 8,
+     "2027": 9,
+     "2028": 10,
+     "2029": 11
+    }
+   },
+   {
+    "kunci": "tendik_sertifikasi",
+    "indikator": "Tendik bersertifikat kompetensi",
+    "target": {
+     "2026": 61,
+     "2027": 62,
+     "2028": 63,
+     "2029": 64
+    }
+   }
+  ],
+  "rasio": {
+   "2026": 28,
+   "2027": 27,
+   "2028": 26,
+   "2029": 25
+  }
+ },
+ "tatakelola": {
+  "ppepp": [
+   {
+    "tahap": "Penetapan",
+    "isi": "Renstra UNJ 2025–2029, Peraturan Rektor 11/2024 tentang Manajemen Kepegawaian, dan peraturan organisasi dan tata kerja."
+   },
+   {
+    "tahap": "Pelaksanaan",
+    "isi": "Rekrutmen, tugas belajar, pelatihan PEKERTI dan Applied Approach, pengusulan jabatan akademik, dan penempatan tendik."
+   },
+   {
+    "tahap": "Evaluasi",
+    "isi": "Pemantauan kualifikasi dan jabatan dari DUK, SISTER, dan PDDikti; analisis BKD setiap semester."
+   },
+   {
+    "tahap": "Pengendalian",
+    "isi": "Tinjauan capaian oleh pimpinan dan tindak lanjut program yang belum mencapai target."
+   },
+   {
+    "tahap": "Peningkatan",
+    "isi": "Pembaruan rencana dan kebijakan kepegawaian berdasarkan hasil evaluasi."
+   }
+  ],
+  "fungsi": [
+   {
+    "fungsi": "Perencanaan",
+    "isi": "Renstra dijabarkan ke RKAT, perjanjian kinerja, dan indikator kinerja unit. Kebutuhan pegawai direncanakan lima tahunan berdasarkan analisis jabatan dan usulan unit kerja.",
+    "dasar": "Peraturan Rektor 11/2024 Pasal 8"
+   },
+   {
+    "fungsi": "Pengorganisasian",
+    "isi": "Tugas, fungsi, wewenang, hubungan koordinasi, dan garis komando setiap unit ditetapkan dalam peraturan organisasi dan tata kerja.",
+    "dasar": "Peraturan Rektor 12/2025"
+   },
+   {
+    "fungsi": "Penempatan personel",
+    "isi": "Dosen ditempatkan melalui SK homebase dan tendik melalui SK penempatan; rotasi tendik dan mobilitas talenta berbasis sistem merit.",
+    "dasar": "Peraturan Rektor 11/2024 Pasal 46 dan 60"
+   },
+   {
+    "fungsi": "Pengarahan",
+    "isi": "Pengelolaan kinerja didelegasikan berjenjang kepada pimpinan unit melalui dialog kinerja dan SOP layanan.",
+    "dasar": "Peraturan Rektor 11/2024 Pasal 55–58"
+   },
+   {
+    "fungsi": "Pengawasan",
+    "isi": "BKD setiap semester, penilaian kinerja pegawai, Satuan Pengawas Internal, penjaminan mutu internal, dan Laporan Tahunan Rektor kepada MWA.",
+    "dasar": "Peraturan Rektor 11/2024 Pasal 59; Statuta"
+   }
+  ],
+  "dokumen": [
+   {
+    "nama": "Renstra UNJ 2025–2029",
+    "jenis": "Perencanaan",
+    "ket": "Disahkan Majelis Wali Amanat"
+   },
+   {
+    "nama": "PP 31/2024 tentang PTNBH Universitas Negeri Jakarta",
+    "jenis": "Statuta",
+    "ket": "Landasan tata kelola PTNBH"
+   },
+   {
+    "nama": "Peraturan Rektor 11/2024 tentang Manajemen Kepegawaian",
+    "jenis": "Kepegawaian",
+    "ket": "Perencanaan sampai pemberhentian pegawai"
+   },
+   {
+    "nama": "Peraturan Rektor 12/2025 tentang Organisasi dan Tata Kerja",
+    "jenis": "Organisasi",
+    "ket": "Tugas, fungsi, dan wewenang unit"
+   },
+   {
+    "nama": "Permendiktisaintek 52/2025",
+    "jenis": "Karier dosen",
+    "ket": "Profesi, karier, dan penghasilan dosen"
+   },
+   {
+    "nama": "Kepmendiktisaintek 39/M/KEP/2026",
+    "jenis": "Karier dosen",
+    "ket": "Petunjuk teknis pengembangan profesi dan karier dosen"
+   },
+   {
+    "nama": "Pedoman Pengangkatan Guru Besar",
+    "jenis": "Karier dosen",
+    "ket": "Persyaratan dan tata cara pengusulan"
+   },
+   {
+    "nama": "SOP layanan SDM",
+    "jenis": "Layanan",
+    "ket": "sdm.unj.ac.id"
+   }
+  ],
+  "sistem": [
+   "SIPEG",
+   "SIPERAN",
+   "DASI",
+   "e-SPPD",
+   "SIRENA",
+   "SAKU",
+   "SIREMUNERASI",
+   "Dashboard IKU",
+   "PANTAU Apps",
+   "SIMRISK",
+   "SISTER",
+   "PDDikti"
+  ],
+  "akuntabilitas": [
+   {
+    "label": "Predikat SAKIP",
+    "nilai": "AA"
+   },
+   {
+    "label": "Opini laporan keuangan",
+    "nilai": "WTP"
+   },
+   {
+    "label": "Fakultas berzona integritas",
+    "nilai": "100%"
    }
   ]
  }
