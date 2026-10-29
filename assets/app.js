@@ -28,6 +28,22 @@
     return b;
   };
 
+  const rgba = (hex, a) => { const m = String(hex).trim().replace('#', ''); if (m.length !== 6) return hex; const n = parseInt(m, 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+  const grad = (c, a1 = .35, a2 = .02, horiz = false) => (ctx) => {
+    const ch = ctx.chart; const A = ch.chartArea;
+    if (!A) return rgba(c, a1);
+    const g = horiz ? ch.ctx.createLinearGradient(A.left, 0, A.right, 0) : ch.ctx.createLinearGradient(0, A.top, 0, A.bottom);
+    g.addColorStop(0, rgba(c, a1)); g.addColorStop(1, rgba(c, a2));
+    return g;
+  };
+  const barGrad = (c) => (ctx) => {
+    const ch = ctx.chart; const A = ch.chartArea;
+    if (!A) return c;
+    const horiz = ch.options.indexAxis === 'y';
+    const g = horiz ? ch.ctx.createLinearGradient(A.left, 0, A.right, 0) : ch.ctx.createLinearGradient(0, A.bottom, 0, A.top);
+    g.addColorStop(0, rgba(c, .72)); g.addColorStop(1, rgba(c, 1));
+    return g;
+  };
   if (!D) { $('lead').textContent = 'Data tidak dapat dimuat.'; return; }
   const K = D.kpi;
   const JAB = [['gb', 'Guru Besar', '--c1'], ['lk', 'Lektor Kepala', '--c2'], ['l', 'Lektor', '--c3'], ['aa', 'Asisten Ahli', '--c4'], ['tanpa', 'Belum berjabatan', '--c5']];
@@ -104,6 +120,65 @@
       ctx.restore();
     },
   };
+  const valueLabels = {
+    id: 'valueLabels',
+    afterDatasetsDraw(chart, _a, opts) {
+      if (!opts || !opts.enabled) return;
+      const { ctx } = chart;
+      const horiz = chart.options.indexAxis === 'y';
+      ctx.save();
+      ctx.font = `600 11px ${css('--font')}`;
+      ctx.fillStyle = css('--ink');
+      chart.data.datasets.forEach((ds, di) => {
+        const meta = chart.getDatasetMeta(di);
+        if (meta.hidden || (opts.only != null && opts.only !== di)) return;
+        meta.data.forEach((elm, i) => {
+          const v = ds.data[i];
+          if (v == null || (!v && !opts.zero)) return;
+          const t = opts.format ? opts.format(v) : nf(v);
+          if (horiz) { ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(t, elm.x + 6, elm.y); } else { ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(t, elm.x, elm.y - 5); }
+        });
+      });
+      ctx.restore();
+    },
+  };
+  const centerText = {
+    id: 'centerText',
+    afterDraw(chart, _a, opts) {
+      if (!opts || !opts.text) return;
+      const m = chart.getDatasetMeta(0).data[0];
+      if (!m) return;
+      const { ctx } = chart;
+      const half = chart.options.circumference === 180;
+      const y = half ? m.y - 12 : m.y;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = css('--ink');
+      ctx.font = `600 ${opts.size || 22}px ${css('--num')}`;
+      ctx.fillText(opts.text, m.x, y - (opts.sub && !half ? 8 : 0));
+      if (opts.sub) { ctx.font = `500 11px ${css('--font')}`; ctx.fillStyle = css('--muted'); ctx.fillText(opts.sub, m.x, half ? m.y + 6 : y + 14); }
+      ctx.restore();
+    },
+  };
+  const gaugeMark = {
+    id: 'gaugeMark',
+    afterDatasetsDraw(chart, _a, opts) {
+      if (!opts || opts.value == null) return;
+      const m = chart.getDatasetMeta(0).data[0];
+      if (!m) return;
+      const a = Math.PI + (opts.value / opts.max) * Math.PI;
+      const { ctx } = chart;
+      ctx.save();
+      ctx.strokeStyle = css('--ink');
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(m.x + Math.cos(a) * (m.innerRadius - 4), m.y + Math.sin(a) * (m.innerRadius - 4));
+      ctx.lineTo(m.x + Math.cos(a) * (m.outerRadius + 4), m.y + Math.sin(a) * (m.outerRadius + 4));
+      ctx.stroke();
+      ctx.restore();
+    },
+  };
   const applyDefaults = () => {
     if (!window.Chart) return;
     Chart.defaults.font.family = css('--font');
@@ -117,17 +192,22 @@
     Chart.defaults.plugins.tooltip.padding = 10;
     Chart.defaults.plugins.tooltip.cornerRadius = 8;
     Chart.defaults.maintainAspectRatio = false;
+    Chart.defaults.elements.bar.borderSkipped = false;
+    Chart.defaults.elements.line.borderWidth = 2.5;
+    Chart.defaults.elements.point.hoverRadius = 7;
+    Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    Chart.defaults.plugins.legend.labels.pointStyle = 'rectRounded';
     if (reduce) Chart.defaults.animation = false;
   };
   const chart = (id, build) => { builders[id] = build; render(id); };
   const render = (id) => {
     if (!window.Chart) return;
     if (charts[id]) charts[id].destroy();
-    charts[id] = new Chart($(id), { ...builders[id](), plugins: [refLines] });
+    charts[id] = new Chart($(id), builders[id]());
   };
   const renderAll = () => { applyDefaults(); Object.keys(builders).forEach(render); };
   const pctAxis = (min = 0, max = 100) => ({ min, max, ticks: { callback: (v) => `${v}%` }, grid: { color: css('--line') } });
-  window.Chart && Chart.register(refLines);
+  window.Chart && Chart.register(refLines, valueLabels, centerText, gaugeMark);
 
   /* ---------- Navigasi halaman ---------- */
   const ICON = {
@@ -151,7 +231,7 @@
   let grp = null;
   sections.forEach((s, i) => {
     if (s.dataset.group && s.dataset.group !== grp) { grp = s.dataset.group; navKids.push(el('p', { class: 'nav-group' }, grp)); }
-    navKids.push(el('a', { href: `#${pages[i]}` }, svg(ICON[pages[i]] || ''), s.dataset.title, el('span', { class: 'num' }, String(i + 1))));
+    navKids.push(el('a', { href: `#${pages[i]}` }, svg(ICON[pages[i]] || ''), s.dataset.title));
   });
   $('nav').replaceChildren(...navKids);
   const links = [...$('nav').querySelectorAll('a')];
@@ -216,6 +296,34 @@
     'Proporsi dosen berjabatan akademik ', el('b', {}, pf(K.ja_pct)), ` karena ${K.cpns25} dosen CPNS angkatan 2025 belum memperoleh jabatan pertama. `,
     'Dosen yang memenuhi BKD naik dari ', el('b', {}, pf(K.bkd_awal_pct)), ` pada ${K.bkd_awal_sem} menjadi `, el('b', {}, pf(K.bkd_pct)), ` pada ${K.bkd_sem}.`,
   );
+  $('hero-meta').replaceChildren(...[
+    [nf(K.dosen), 'dosen tetap'], [nf(K.tendik), 'tenaga kependidikan'], [String(D.prodi.length), 'program studi'], [String(D.doktor.length), 'program doktor'], [String(D.fakultas.length), 'fakultas'],
+  ].map(([n, l]) => el('span', {}, el('b', {}, n), ` ${l}`)));
+  const GAUGES = [
+    { id: 'g-ja', l: 'Berjabatan akademik', v: K.ja_pct, thr: 90, max: 100, s: 'syarat terakreditasi ≥ 90%' },
+    { id: 'g-gblk', l: 'Guru Besar + Lektor Kepala', v: K.gblk_pct, thr: 30, max: 50, s: 'syarat unggul ≥ 30%' },
+    { id: 'g-dok', l: 'Bergelar doktor', v: K.doktor_pct, thr: 50, max: 100, s: 'syarat unggul ≥ 50%' },
+    { id: 'g-bkd', l: 'Memenuhi BKD', v: K.bkd_pct, thr: 95, max: 100, s: `semester ${K.bkd_sem}` },
+  ];
+  $('gauges').replaceChildren(...GAUGES.map((g) => el('div', { class: 'gauge' }, el('div', { class: 'gauge-box' }, el('canvas', { id: g.id, 'aria-label': `${g.l} ${pf(g.v)}` })), el('b', {}, g.l), el('small', {}, g.s))));
+  GAUGES.forEach((g) => chart(g.id, () => {
+    const ok = g.v >= g.thr;
+    const c = ok ? css('--ok') : g.v >= g.thr * 0.95 ? css('--warn') : css('--bad');
+    return {
+      type: 'doughnut',
+      data: { datasets: [{ data: [Math.min(g.v, g.max), Math.max(0, g.max - g.v)], backgroundColor: [c, css('--track')], borderWidth: 0, borderRadius: 6 }] },
+      options: { circumference: 180, rotation: -90, cutout: '76%', events: [], plugins: { legend: { display: false }, tooltip: { enabled: false },
+        centerText: { text: pf(g.v), sub: `syarat ${g.thr}%`, size: 22 }, gaugeMark: { value: g.thr, max: g.max } } },
+    };
+  }));
+  const TJs = D.tren.jabatan;
+  const tjTot = (r) => r.guru_besar + r.lektor_kepala + r.lektor + r.asisten_ahli + r.belum_berjabatan;
+  const SPARK = {
+    'Dosen tetap': TJs.filter((r) => !r.sumber.startsWith('PDDikti')).map((r) => tjTot(r)),
+    'Guru Besar + Lektor Kepala': TJs.filter((r) => !r.sumber.startsWith('PDDikti')).map((r) => +pc(r.guru_besar + r.lektor_kepala, tjTot(r)).toFixed(1)),
+    'Berjabatan akademik': TJs.filter((r) => !r.sumber.startsWith('PDDikti')).map((r) => +pc(tjTot(r) - r.belum_berjabatan, tjTot(r)).toFixed(1)),
+    'Memenuhi BKD': D.bkd.ringkas.map((r) => +pc(r.memenuhi, r.dosen).toFixed(1)),
+  };
   const kpis = [
     { l: 'Dosen tetap', v: K.dosen, f: nf, s: 'PNS, PPPK, dan tetap PTNBH', p: 'fakultas', t: 'mute' },
     { l: 'Bergelar doktor', v: K.doktor_pct, f: pf, s: `${nf(K.doktor)} dosen · unggul ≥ 50%`, p: 'tren', t: K.doktor_pct >= 50 ? 'ok' : 'warn', bar: [K.doktor_pct, 50] },
@@ -229,7 +337,16 @@
     num._f = k.f;
     return el('button', { type: 'button', class: 'kpi', onclick: () => { location.hash = k.p; }, 'aria-label': `${k.l} ${k.f(k.v)}, buka halaman terkait` },
       el('span', { class: 'kpi-top' }, el('span', { class: 'kpi-label' }, k.l), el('i', { class: `dot ${k.t}` })),
-      num, k.bar ? bar(k.bar[0], 100, [[k.bar[1], '']], k.t === 'ok' ? '' : 'warn') : null, el('span', { class: 'kpi-sub' }, k.s));
+      num, SPARK[k.l] ? el('div', { class: 'spark' }, el('canvas', { id: `sp-${k.p}-${k.l.length}` })) : (k.bar ? bar(k.bar[0], 100, [[k.bar[1], '']], k.t === 'ok' ? '' : 'warn') : null), el('span', { class: 'kpi-sub' }, k.s));
+  }));
+  kpis.filter((k) => SPARK[k.l]).forEach((k) => chart(`sp-${k.p}-${k.l.length}`, () => {
+    const d = SPARK[k.l];
+    const c = k.t === 'bad' ? css('--bad') : k.t === 'warn' ? css('--warn') : css('--c1');
+    return {
+      type: 'line',
+      data: { labels: d.map((_, i) => i), datasets: [{ data: d, borderColor: c, backgroundColor: grad(c, .3, 0), fill: true, tension: .35, borderWidth: 2, pointRadius: d.map((_, i) => (i === d.length - 1 ? 3 : 0)), pointBackgroundColor: c }] },
+      options: { events: [], animation: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } }, layout: { padding: 3 } },
+    };
   }));
   if (!reduce) {
     document.querySelectorAll('.kpi-num').forEach((n) => {
@@ -249,7 +366,7 @@
   chart('ch-status', () => ({
     type: 'doughnut',
     data: { labels: Object.keys(st), datasets: [{ data: Object.values(st), backgroundColor: [css('--ok'), css('--bad'), css('--c5')], borderColor: css('--panel'), borderWidth: 3 }] },
-    options: { cutout: '64%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw} syarat` } } } },
+    options: { cutout: '68%', plugins: { legend: { position: 'right' }, centerText: { text: `${st.Memenuhi}/${Object.values(st).reduce((a, b) => a + b, 0)}`, sub: 'syarat terpenuhi' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw} syarat` } } } },
   }));
   const dok50 = D.doktor.filter((r) => r.guru_besar / r.dosen_tetap >= 0.5).length;
   $('facts').replaceChildren(...[
@@ -272,7 +389,7 @@
   chart('ch-kebutuhan', () => ({
     type: 'line',
     data: { labels: D.kebutuhan.map((r) => r.tahun), datasets: [
-      { label: 'Doktor', data: D.kebutuhan.map((r) => r.s3), borderColor: css('--c1'), backgroundColor: css('--c1'), tension: .3 },
+      { label: 'Doktor', data: D.kebutuhan.map((r) => r.s3), borderColor: css('--c1'), backgroundColor: grad(css('--c1'), .22, 0), fill: true, tension: .3 },
       { label: 'Guru Besar', data: D.kebutuhan.map((r) => r.gb), borderColor: css('--c-accent'), backgroundColor: css('--c-accent'), tension: .3 },
       { label: 'Lektor Kepala', data: D.kebutuhan.map((r) => r.lk), borderColor: css('--c3'), backgroundColor: css('--c3'), tension: .3 },
     ] },
@@ -290,8 +407,8 @@
       : [['Tendik tetap', 'tendik_tetap', '--c-accent']];
     return {
       type: 'bar',
-      data: { labels: P.map((r) => r.label), datasets: ds.map(([l, k, c]) => ({ label: l, data: P.map((r) => r[k]), backgroundColor: css(c), borderRadius: 4 })) },
-      options: { plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false } } } },
+      data: { labels: P.map((r) => r.label), datasets: ds.map(([l, k, c]) => ({ label: l, data: P.map((r) => r[k]), backgroundColor: barGrad(css(c)), borderRadius: 6, maxBarThickness: 46 })) },
+      options: { layout: { padding: { top: 18 } }, plugins: { valueLabels: { enabled: true }, legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false } } } },
     };
   });
 
@@ -343,10 +460,10 @@
     return {
       type: 'bar',
       data: { labels: kats, datasets: [
-        { label: 'Januari 2025', data: get('Jan 2025'), backgroundColor: css('--c4'), borderRadius: 4 },
-        { label: 'Oktober 2026', data: get('Okt 2026'), backgroundColor: css('--c1'), borderRadius: 4 },
+        { label: 'Januari 2025', data: get('Jan 2025'), backgroundColor: css('--c4'), borderRadius: 6, maxBarThickness: 54 },
+        { label: 'Oktober 2026', data: get('Okt 2026'), backgroundColor: barGrad(css('--c1')), borderRadius: 6, maxBarThickness: 54 },
       ] },
-      options: { plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false } } } },
+      options: { layout: { padding: { top: 18 } }, plugins: { valueLabels: { enabled: true }, legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false } } } },
     };
   });
 
@@ -372,7 +489,7 @@
     chart('ch-fak-detail', () => ({
       type: 'doughnut',
       data: { labels: JAB.map(([, n]) => n), datasets: [{ data: JAB.map(([k]) => r[k]), backgroundColor: JAB.map(([, , c]) => css(c)), borderColor: css('--panel'), borderWidth: 2 }] },
-      options: { cutout: '60%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw} (${pf(pc(c.raw, r.dosen))})` } } } },
+      options: { cutout: '64%', plugins: { legend: { position: 'right' }, centerText: { text: nf(r.dosen), sub: 'dosen', size: 18 }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw} (${pf(pc(c.raw, r.dosen))})` } } } },
     }));
     drawFakTable();
     if (charts['ch-fakultas']) render('ch-fakultas');
@@ -405,6 +522,31 @@
   }));
   drawFak();
 
+  /* Peta kinerja fakultas (heatmap) */
+  const bkdF = Object.fromEntries(D.bkd.fakultas.filter((x) => x.semester === bkdLast).map((x) => [x.fakultas, pc(x.memenuhi, x.dosen)]));
+  const HM = [
+    { k: 'doktor_pct', l: 'Doktor', f: pf, good: 1, lo: 20, hi: 55, ref: 'unggul ≥ 50%' },
+    { k: 'gblk_pct', l: 'GB + LK', f: pf, good: 1, lo: 15, hi: 50, ref: 'unggul ≥ 30%' },
+    { k: 'ja_pct', l: 'Berjabatan', f: pf, good: 1, lo: 70, hi: 100, ref: 'syarat ≥ 90%' },
+    { k: 'bkd_pct', l: 'Memenuhi BKD', f: pf, good: 1, lo: 94, hi: 100, ref: bkdLast },
+    { k: 'pens_pct', l: 'Pensiun ≤ 2029', f: pf, good: -1, lo: 0, hi: 10, ref: 'porsi dosen' },
+    { k: 'tb', l: 'Tugas belajar', f: nf, good: 1, lo: 0, hi: 6, ref: 'orang' },
+  ];
+  const HR = FS.map((r) => ({ ...r, ja_pct: pc(r.dosen - r.tanpa, r.dosen), bkd_pct: bkdF[r.kode] ?? 0, pens_pct: pc(r.pensiun, r.dosen) }));
+  const heat = $('heatmap');
+  heat.replaceChildren(
+    el('div', { class: 'hm-row hm-head' }, el('span', {}, 'Fakultas'), ...HM.map((m) => el('span', {}, m.l, el('small', {}, m.ref)))),
+    ...HR.map((r) => el('div', { class: 'hm-row', onclick: () => { selFak = r.kode; drawFak(); $('fak-detail').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); } },
+      el('span', { class: 'hm-name' }, el('b', {}, r.kode), el('small', {}, r.nama.replace('Fakultas ', ''))),
+      ...HM.map((m) => {
+        const t = Math.max(0, Math.min(1, (r[m.k] - m.lo) / (m.hi - m.lo)));
+        const v = m.good > 0 ? t : 1 - t;
+        const base = m.good > 0 ? '--c1' : '--c-accent';
+        const strength = m.good > 0 ? v : t;
+        return el('span', { class: 'hm-cell', style: `--a:${Math.round(8 + strength * 62)}%;--hc:var(${base})`, title: `${r.kode} · ${m.l}: ${m.f(r[m.k])}` }, m.f(r[m.k]));
+      }))),
+  );
+
   /* =================== 5. Jabatan =================== */
   let pembagi = 'semua';
   const jv = (r) => (pembagi === 'np' ? r.np : { gb: r.gb, lk: r.lk, l: r.l, aa: r.aa, tanpa: r.tanpa });
@@ -428,7 +570,7 @@
     return {
       type: 'doughnut',
       data: { labels: JAB.map(([, n]) => n), datasets: [{ data: JAB.map(([k]) => V[k]), backgroundColor: JAB.map(([, , c]) => css(c)), borderColor: css('--panel'), borderWidth: 3 }] },
-      options: { cutout: '58%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, jt(V)))})` } } } },
+      options: { cutout: '64%', plugins: { legend: { position: 'right' }, centerText: { text: nf(jt(V)), sub: 'dosen tetap' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, jt(V)))})` } } } },
     };
   };
   builders['ch-jab-fak'] = () => ({
@@ -454,8 +596,8 @@
     const rs = [...DK].sort((a, b) => b.pct - a.pct);
     return {
       type: 'bar',
-      data: { labels: rs.map((r) => r.prodi), datasets: [{ label: 'Porsi Guru Besar', data: rs.map((r) => +r.pct.toFixed(1)), backgroundColor: rs.map((r) => (r.pct >= 50 ? css('--c1') : css('--warn'))), borderRadius: 4 }] },
-      options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${pf(c.raw)} · ${rs[c.dataIndex].guru_besar} GB dari ${rs[c.dataIndex].dosen_tetap} dosen` } },
+      data: { labels: rs.map((r) => r.prodi), datasets: [{ label: 'Porsi Guru Besar', data: rs.map((r) => +r.pct.toFixed(1)), backgroundColor: rs.map((r) => barGrad(r.pct >= 50 ? css('--c1') : css('--warn'))), borderRadius: 6 }] },
+      options: { indexAxis: 'y', layout: { padding: { right: 48 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true, format: (v) => pf(v) }, tooltip: { callbacks: { label: (c) => `${pf(c.raw)} · ${rs[c.dataIndex].guru_besar} GB dari ${rs[c.dataIndex].dosen_tetap} dosen` } },
         refLines: { lines: [{ axis: 'x', value: 50, label: '50%', color: css('--ink') }] } },
         scales: { x: pctAxis(), y: { grid: { display: false } } } },
     };
@@ -479,19 +621,19 @@
   };
   builders['ch-bkd'] = () => ({
     type: 'line',
-    data: { labels: R.map((r) => r.semester.replace('/20', '/')), datasets: [{ label: 'Memenuhi BKD', data: R.map((r) => +pc(r.memenuhi, r.dosen).toFixed(1)), borderColor: css('--c1'), backgroundColor: css('--c1'),
-      pointRadius: R.map((r) => (r.semester === sel.value ? 7 : 4)), pointBackgroundColor: R.map((r) => (r.semester === sel.value ? css('--c-accent') : css('--c1'))), tension: .3, fill: false }] },
+    data: { labels: R.map((r) => r.semester.replace('/20', '/')), datasets: [{ label: 'Memenuhi BKD', data: R.map((r) => +pc(r.memenuhi, r.dosen).toFixed(1)), borderColor: css('--c1'), backgroundColor: grad(css('--c1'), .28, 0),
+      pointRadius: R.map((r) => (r.semester === sel.value ? 8 : 5)), pointBackgroundColor: R.map((r) => (r.semester === sel.value ? css('--c-accent') : css('--panel'))), pointBorderColor: css('--c1'), pointBorderWidth: 2, tension: .35, fill: true }] },
     options: { onClick: (_e, els) => { if (els.length) { sel.value = R[els[0].index].semester; drawSem(); } },
       onHover: (e, els) => { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; },
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Memenuhi ${pf(c.raw)} (${nf(R[c.dataIndex].memenuhi)} dari ${nf(R[c.dataIndex].dosen)})` } } },
-      scales: { x: { grid: { display: false } }, y: pctAxis(85, 100) } },
+      plugins: { legend: { display: false }, valueLabels: { enabled: true, format: (v) => pf(v) }, tooltip: { callbacks: { label: (c) => `Memenuhi ${pf(c.raw)} (${nf(R[c.dataIndex].memenuhi)} dari ${nf(R[c.dataIndex].dosen)})` } } },
+      layout: { padding: { top: 18 } }, scales: { x: { grid: { display: false } }, y: pctAxis(85, 100) } },
   });
   builders['ch-bkd-fak'] = () => {
     const rs = D.bkd.fakultas.filter((x) => x.semester === sel.value && x.fakultas !== 'Tidak terpetakan').map((x) => ({ ...x, p: pc(x.memenuhi, x.dosen) })).sort((a, b) => b.p - a.p);
     return {
       type: 'bar',
-      data: { labels: rs.map((x) => x.fakultas), datasets: [{ label: 'Memenuhi', data: rs.map((x) => +x.p.toFixed(1)), backgroundColor: rs.map((x) => (x.p >= 97 ? css('--c1') : css('--warn'))), borderRadius: 4 }] },
-      options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${pf(c.raw)} · ${rs[c.dataIndex].tidak_memenuhi} tidak memenuhi dari ${rs[c.dataIndex].dosen}` } } },
+      data: { labels: rs.map((x) => x.fakultas), datasets: [{ label: 'Memenuhi', data: rs.map((x) => +x.p.toFixed(1)), backgroundColor: rs.map((x) => barGrad(x.p >= 97 ? css('--c1') : css('--warn'))), borderRadius: 6 }] },
+      options: { indexAxis: 'y', layout: { padding: { right: 46 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true, format: (v) => pf(v) }, tooltip: { callbacks: { label: (c) => `${pf(c.raw)} · ${rs[c.dataIndex].tidak_memenuhi} tidak memenuhi dari ${rs[c.dataIndex].dosen}` } } },
         scales: { x: pctAxis(80, 100), y: { grid: { display: false } } } },
     };
   };
@@ -526,7 +668,7 @@
     return {
       type: 'doughnut',
       data: { labels: rs.map((r) => r.kategori), datasets: [{ data: rs.map((r) => r.jumlah), backgroundColor: rs.map((_, i) => css(pal[i % pal.length])), borderColor: css('--panel'), borderWidth: 2 }] },
-      options: { cutout: '55%', plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, tn))})` } } } },
+      options: { cutout: '64%', plugins: { legend: { position: 'bottom' }, centerText: { text: nf(tn), sub: 'tendik' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, tn))})` } } } },
     };
   });
   donut('ch-t-pend', 'Pendidikan');
@@ -548,8 +690,8 @@
   chart('ch-prodi-dist', () => ({
     type: 'bar',
     data: { labels: BINS.map((b) => `${b[0]} dosen`), datasets: [{ label: 'Program studi', data: BINS.map(([, a, b]) => PR.filter((r) => r.dosen >= a && r.dosen <= b).length),
-      backgroundColor: BINS.map((_, i) => (i === 0 ? css('--bad') : i === 1 ? css('--warn') : css('--c1'))), borderRadius: 6 }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw} program studi` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 0 } } } },
+      backgroundColor: BINS.map((_, i) => barGrad(i === 0 ? css('--bad') : i === 1 ? css('--warn') : css('--c1'))), borderRadius: 8, maxBarThickness: 64 }] },
+    options: { layout: { padding: { top: 20 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true }, tooltip: { callbacks: { label: (c) => `${c.raw} program studi` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 0 } } } },
   }));
   chart('ch-prodi-jenjang', () => ({
     type: 'bar',
@@ -603,23 +745,23 @@
   );
   chart('ch-pensiun-fak', () => {
     const rs = [...FS].sort((a, b) => b.pensiun - a.pensiun);
-    return { type: 'bar', data: { labels: rs.map((r) => r.kode), datasets: [{ label: 'Pensiun', data: rs.map((r) => r.pensiun), backgroundColor: css('--c-accent'), borderRadius: 4 }] },
-      options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { title: (it) => rs[it[0].dataIndex].nama, label: (c) => `${c.raw} dosen pensiun (${pf(pc(c.raw, rs[c.dataIndex].dosen))} dari dosen fakultas)` } } },
+    return { type: 'bar', data: { labels: rs.map((r) => r.kode), datasets: [{ label: 'Pensiun', data: rs.map((r) => r.pensiun), backgroundColor: barGrad(css('--c-accent')), borderRadius: 6 }] },
+      options: { indexAxis: 'y', layout: { padding: { right: 28 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true }, tooltip: { callbacks: { title: (it) => rs[it[0].dataIndex].nama, label: (c) => `${c.raw} dosen pensiun (${pf(pc(c.raw, rs[c.dataIndex].dosen))} dari dosen fakultas)` } } },
         scales: { x: { ticks: { precision: 0 } }, y: { grid: { display: false } } } } };
   });
   const ageChart = (id, rows, color, unit) => chart(id, () => ({
-    type: 'bar', data: { labels: rows.map((r) => r.kelompok), datasets: [{ label: unit, data: rows.map((r) => r.jumlah), backgroundColor: rows.map((_, i) => (i === rows.length - 1 ? css('--c-accent') : css(color))), borderRadius: 6 }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${nf(c.raw)} ${unit} (${pf(pc(c.raw, rows.reduce((a, r) => a + r.jumlah, 0)))})` } } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Usia (tahun)' } }, y: { ticks: { precision: 0 } } } },
+    type: 'bar', data: { labels: rows.map((r) => r.kelompok), datasets: [{ label: unit, data: rows.map((r) => r.jumlah), backgroundColor: rows.map((_, i) => barGrad(i === rows.length - 1 ? css('--c-accent') : css(color))), borderRadius: 8, maxBarThickness: 70 }] },
+    options: { layout: { padding: { top: 20 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true }, tooltip: { callbacks: { label: (c) => `${nf(c.raw)} ${unit} (${pf(pc(c.raw, rows.reduce((a, r) => a + r.jumlah, 0)))})` } } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Usia (tahun)' } }, y: { ticks: { precision: 0 } } } },
   }));
   ageChart('ch-usia', G.usia, '--c1', 'dosen');
   ageChart('ch-t-usia', G.t_usia, '--c2', 'tendik');
   chart('ch-status-dosen', () => ({
     type: 'doughnut', data: { labels: G.status.map((r) => r.status), datasets: [{ data: G.status.map((r) => r.jumlah), backgroundColor: [css('--c1'), css('--c-accent'), css('--c3')], borderColor: css('--panel'), borderWidth: 3 }] },
-    options: { cutout: '60%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, K.dosen))})` } } } },
+    options: { cutout: '64%', plugins: { legend: { position: 'right' }, centerText: { text: nf(K.dosen), sub: 'dosen tetap' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${nf(c.raw)} (${pf(pc(c.raw, K.dosen))})` } } } },
   }));
   chart('ch-jft-jenis', () => ({
-    type: 'bar', data: { labels: G.t_jft_jenis.map((r) => r.jenis), datasets: [{ label: 'Tendik', data: G.t_jft_jenis.map((r) => r.jumlah), backgroundColor: css('--c2'), borderRadius: 4 }] },
-    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { precision: 0 } }, y: { grid: { display: false } } } },
+    type: 'bar', data: { labels: G.t_jft_jenis.map((r) => r.jenis), datasets: [{ label: 'Tendik', data: G.t_jft_jenis.map((r) => r.jumlah), backgroundColor: barGrad(css('--c2')), borderRadius: 6 }] },
+    options: { indexAxis: 'y', layout: { padding: { right: 28 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true } }, scales: { x: { ticks: { precision: 0 } }, y: { grid: { display: false } } } },
   }));
 
   /* =================== 12. Rencana pengembangan =================== */
@@ -634,13 +776,12 @@
     const vals = YRS.map((y) => r.target[y]);
     return {
       type: 'line',
-      data: { labels: YRS, datasets: [{ label: 'Target Renstra', data: vals, borderColor: css('--c1'), backgroundColor: color(css('--c1'), .15), fill: true, tension: .25, pointRadius: 5 }] },
-      options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Target ${c.label}: ${c.raw}%` } },
+      data: { labels: YRS, datasets: [{ label: 'Target Renstra', data: vals, borderColor: css('--c1'), backgroundColor: grad(css('--c1'), .3, 0), fill: true, tension: .25, pointRadius: 5, pointBackgroundColor: css('--panel'), pointBorderWidth: 2 }] },
+      options: { layout: { padding: { top: 18 } }, plugins: { legend: { display: false }, valueLabels: { enabled: true, format: (v) => `${v}%` }, tooltip: { callbacks: { label: (c) => `Target ${c.label}: ${c.raw}%` } },
         refLines: { lines: cap != null ? [{ axis: 'y', value: cap, label: `Capaian saat ini ${pf(cap)}`, color: css('--c-accent') }] : [] } },
         scales: { x: { grid: { display: false } }, y: { min: 0, suggestedMax: Math.max(...vals, cap || 0) + 5, ticks: { callback: (v) => `${v}%` } } } },
     };
   };
-  const color = (hex, a) => { const m = hex.replace('#', ''); if (m.length !== 6) return hex; const n = parseInt(m, 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
   const drawTarget = () => {
     const r = RT.find((x) => x.kunci === selT.value);
     const cap = capOf[r.kunci];

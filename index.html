@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
 <div class="app">
@@ -54,8 +54,14 @@
     <main class="content">
       <!-- 1. Ringkasan -->
       <section class="page" data-group="Profil SDM" id="pg-ringkasan" data-title="Ringkasan" data-sub="Gambaran umum dosen dan tenaga kependidikan">
-        <div class="lead-card">
-          <p class="lead" id="lead">Memuat data…</p>
+        <div class="hero">
+          <div class="hero-text">
+            <p class="eyebrow">Akreditasi Perguruan Tinggi · Instrumen IAPT 4.1</p>
+            <h2>Profil Sumber Daya Manusia Universitas Negeri Jakarta</h2>
+            <p class="lead" id="lead">Memuat data…</p>
+            <div class="hero-meta" id="hero-meta"></div>
+          </div>
+          <div class="gauges" id="gauges"></div>
         </div>
         <div class="kpis" id="kpis"></div>
         <div class="grid">
@@ -127,6 +133,10 @@
             <div class="chart-box lg"><canvas id="ch-fakultas"></canvas></div>
           </div>
           <div class="card span-4 detail" id="fak-detail"></div>
+          <div class="card span-12">
+            <div class="card-head"><h2>Peta kinerja fakultas</h2><span class="hint">Warna lebih pekat berarti capaian lebih baik; untuk pensiun, lebih pekat berarti lebih banyak. Klik baris untuk detail.</span></div>
+            <div class="heatmap" id="heatmap"></div>
+          </div>
           <div class="card span-12">
             <div class="card-head"><h2>Rincian per fakultas</h2><span class="hint">Klik judul kolom untuk mengurutkan, klik baris untuk melihat detail <button type="button" class="btn-ghost" data-csv="tbl-fakultas" data-name="dosen-per-fakultas">Unduh CSV</button></span></div>
             <div class="table-wrap"><table class="tbl sortable clickable" id="tbl-fakultas"></table></div>
@@ -330,7 +340,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="data/data.js?v=3"></script>
-<script src="assets/app.js?v=3"></script>
+<script src="data/data.js?v=5"></script>
+<script src="assets/app.js?v=5"></script>
 </body>
 </html>
