@@ -244,7 +244,10 @@ window.SDM_DATA = {
     "l": 75,
     "aa": 18,
     "tanpa": 55
-   }
+   },
+   "pensiun": 22,
+   "lk_s3": 28,
+   "l_s3": 22
   },
   {
    "kode": "FBS",
@@ -264,7 +267,10 @@ window.SDM_DATA = {
     "l": 81,
     "aa": 58,
     "tanpa": 19
-   }
+   },
+   "pensiun": 20,
+   "lk_s3": 19,
+   "l_s3": 24
   },
   {
    "kode": "FIP",
@@ -284,7 +290,10 @@ window.SDM_DATA = {
     "l": 41,
     "aa": 37,
     "tanpa": 39
-   }
+   },
+   "pensiun": 14,
+   "lk_s3": 29,
+   "l_s3": 16
   },
   {
    "kode": "FISH",
@@ -304,7 +313,10 @@ window.SDM_DATA = {
     "l": 50,
     "aa": 28,
     "tanpa": 27
-   }
+   },
+   "pensiun": 7,
+   "lk_s3": 21,
+   "l_s3": 16
   },
   {
    "kode": "FMIPA",
@@ -324,7 +336,10 @@ window.SDM_DATA = {
     "l": 42,
     "aa": 25,
     "tanpa": 25
-   }
+   },
+   "pensiun": 8,
+   "lk_s3": 24,
+   "l_s3": 13
   },
   {
    "kode": "FEB",
@@ -344,7 +359,10 @@ window.SDM_DATA = {
     "l": 45,
     "aa": 41,
     "tanpa": 8
-   }
+   },
+   "pensiun": 4,
+   "lk_s3": 14,
+   "l_s3": 17
   },
   {
    "kode": "FIKK",
@@ -364,7 +382,10 @@ window.SDM_DATA = {
     "l": 25,
     "aa": 13,
     "tanpa": 10
-   }
+   },
+   "pensiun": 9,
+   "lk_s3": 25,
+   "l_s3": 11
   },
   {
    "kode": "FPsi",
@@ -384,7 +405,10 @@ window.SDM_DATA = {
     "l": 7,
     "aa": 26,
     "tanpa": 0
-   }
+   },
+   "pensiun": 0,
+   "lk_s3": 9,
+   "l_s3": 0
   }
  ],
  "jabatan": {
